@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "images.h"
 #include "game.h"
 #include "credits.h"
 #include "menu.h"
