@@ -36,7 +36,7 @@ void LoadMap(const char* mapfile, const char* map_image)
 
 		for(k = 0; k < TILE_H; k++)
 			for(j = 0; j < TILE_W; k++)
-				fscanf(f, "%d", &tilemap[k][j]);
+				fscanf(f, "%hd", &tilemap[k][j]);
 
 		fclose(f);
 	}
@@ -46,6 +46,8 @@ void LoadMap(const char* mapfile, const char* map_image)
 void RenderMap(SDL_Point cam)
 {
 	int k, j, w;
+	SDL_Rect rect = {TILE_MIN, TILE_MIN, 0, 0};
+	SDL_Rect clip = {TILE_MIN, TILE_MIN, 0, 0};
 
 	w = TILE_CAM_W + cam.x / TILE_MIN;
 
@@ -53,10 +55,20 @@ void RenderMap(SDL_Point cam)
 	{
 		j = cam.x / TILE_MIN;
 
+		rect.y = k * TILE_MIN;
+
 		while(j < w)
 		{
 
-			SDL_RenderCopy(render, TILEMAP.texture, &rect, &clip);
+			if(TILEMAP.tilemap[k][j] > 0)
+			{
+				clip.x = TILEMAP.tilemap[k][j] % TILE_W;
+				clip.y = TILEMAP.tilemap[k][j] / TILE_H;
+
+				SDL_RenderCopy(render, TILEMAP.texture, &TILEMAP.rect, &clip);
+			}
+
+			rect.x += TILE_MIN;
 			j++;
 		}
 	}
