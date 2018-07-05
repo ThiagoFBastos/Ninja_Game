@@ -6,16 +6,17 @@
 #define WIDTH 800
 #define HEIGHT 600
 
-#define GAME_STATE_MENU 0
-#define GAME_STATE_RUN 1
-#define GAME_STATE_CREDITS 3
-#define GAME_STATE_OPTIONS 4
-#define GAME_STATE_RANKLIST 5
-#define GAME_STATE_USERADD 6
+#define MENU 1
+#define RUN 2
+#define CREDITS 3
+#define OPTIONS 4
+#define RANKLIST 5
+#define USERADD 6
+#define EXIT 0
 
 SDL_Window* window = NULL;
 SDL_Renderer* render = NULL;
-int isOpen = 1, game_state = GAME_STATE_MENU;
+int game_state = GAME_STATE_MENU;
 
 // retirar
 void Menu();
@@ -53,26 +54,29 @@ int main()
 			return 1;
 		}
 
-		while(isOpen)
+		while(game_state)
 		{
 			timestamp = SDL_GetTicks();
 
 			switch(game_state)
 			{
-				case GAME_STATE_MENU: 
+				case MENU: 
 					Menu();
 				break;
-				case GAME_STATE_CREDITS:
+					
+				case CREDITS:
 					Credits();
 				 break;
-				case GAME_STATE_RUN:
+					
+				case RUN:
 					Game(); 
 				break;
 			}
 
 			timestamp = FPS - SDL_GetTicks() + timestamp;
 
-			if(timestamp > 0) SDL_Delay(timestamp);
+			if(timestamp > 0) 
+				SDL_Delay(timestamp);
 		}
 
 		SDL_DestroyRenderer(render);
@@ -90,7 +94,7 @@ void Menu()
 	while(SDL_PollEvent(&e) != 0)
 	{
 		if(e.type == SDL_QUIT)
-			isOpen = 0;
+			game_state = EXIT;
 	}
 
 	SDL_RenderClear(render);
