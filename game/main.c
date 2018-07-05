@@ -51,6 +51,14 @@ int main()
 			return 1;
 		}
 		
+		int imgInitFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+		
+		if(IMG_Init(imgInitFlags) != imgInitFlags)
+		{
+			fputs("IMG_Init Failed\n", stderr);
+			return 1;
+		}
+		
 		LoadResourcesMenu();
 
 		while(game_state)
@@ -92,6 +100,8 @@ int main()
 
 		SDL_DestroyRenderer(render);
 		SDL_DestroyWindow(window);
+		
+		IMG_Quit();
 		SDL_Quit();
 	}
 
