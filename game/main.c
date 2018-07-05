@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include "images.h"
+#include "game.h"
+#include "credits.h"
+#include "menu.h"
+#include "options.h"
+#include "user.h"
 
 #define FPS 1000/60
 
@@ -16,15 +21,7 @@
 
 SDL_Window* window = NULL;
 SDL_Renderer* render = NULL;
-int game_state = GAME_STATE_MENU;
-
-// retirar
-void Menu();
-void Options();
-void Game();
-void Credits();
-void RankList();
-void UserAdd();
+int game_state = MENU;
 
 int main()
 {
@@ -53,6 +50,8 @@ int main()
 			fprintf(stderr, "SDL_CreateRenderer: %s\n", SDL_GetError());
 			return 1;
 		}
+		
+		LoadResourcesMenu();
 
 		while(game_state)
 		{
@@ -71,6 +70,18 @@ int main()
 				case RUN:
 					Game(); 
 				break;
+					
+				case OPTIONS:
+					Options();
+				break;
+					
+				case RANKLIST:
+					RankList();
+				break;
+				
+				case USERADD:
+					UserAdd();
+				break;
 			}
 
 			timestamp = FPS - SDL_GetTicks() + timestamp;
@@ -85,46 +96,4 @@ int main()
 	}
 
 	return 0;
-}
-
-void Menu()
-{
-	SDL_Event e;
-
-	while(SDL_PollEvent(&e) != 0)
-	{
-		if(e.type == SDL_QUIT)
-			game_state = EXIT;
-	}
-
-	SDL_RenderClear(render);
-	SDL_SetRenderDrawColor(render, 0, 0, 0, 0xff);
-	SDL_RenderPresent(render);
-}
-
-void Options()
-{
-
-}
-
-void Game()
-{
-	SDL_Event e;
-
-	while(SDL_PollEvent(&e) != 0);
-}
-
-void Credits()
-{
-
-}
-
-void RankList()
-{
-
-}
-
-void UserAdd()
-{
-
 }
