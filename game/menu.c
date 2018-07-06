@@ -64,13 +64,13 @@ void Menu()
             x=e.button.x;
             y=e.button.y;
             if(x>=pos[0].x && x<= pos[0].x + pos[0].w && y>= pos[0].y && y<=pos[0].y + pos[0].h)
-                    game();
+                    Game();
             if(x>=pos[1].x && x<= pos[1].x + pos[1].w && y>= pos[1].y && y<=pos[1].y + pos[1].h)
-                    options();
+                    Options();
             if(x>=pos[2].x && x<= pos[2].x + pos[2].w && y>= pos[2].y && y<=pos[2].y + pos[2].h)
-                    ranklist();
+                    RankList();
             if(x>=pos[3].x && x<= pos[3].x + pos[3].w && y>= pos[3].y && y<=pos[3].y + pos[3].h)
-                    credits();
+                    Credits();
         }
 	}
 
