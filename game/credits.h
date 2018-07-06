@@ -5,7 +5,7 @@
 
 TTF_Font* font;
 IMAGE background, logo;
-TEXT button;
+TEXT button[2];
 
 void LoadCreditsResources();
 void Credits();
