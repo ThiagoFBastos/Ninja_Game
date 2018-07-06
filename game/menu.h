@@ -7,7 +7,7 @@
 // Componentes
 
 IMAGE background;
-Text buttons[4];
+Text labels[4];
 
 // Carrega todos os componentes necessarios para o funcionamento do menu
 void LoadMenuResources();
