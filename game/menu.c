@@ -1,5 +1,6 @@
 #include "menu.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 
 
@@ -10,6 +11,19 @@ void LoadMenuResources()
 {
 	background.texture = LoadTexture("");
     TTF_font* font = TTF_OpenFont("m5x7.ttf",32);
+	
+	//button[0]
+	strcpy(button[0].text, "Novo jogo");
+	button[0].selected = 0;
+	button[0].color.r = button[0].g = button[0].b = button[0].a = 0xff;
+	NewText(font, &button[0]);
+	
+	//button[1]
+	
+	strcpy(button[1].text, "Opções");
+	button[1].selected = 0;
+	button[1].color.r = button[1].g = button[1].b = button[1].a = 0xff;
+	NewText(font, &button[1]);
 }
 
 void Menu()
