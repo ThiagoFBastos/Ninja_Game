@@ -8,7 +8,7 @@ typedef struct
 	SDL_Rect bounds;
 	SDL_Texture* texture;
 	char text[50];
-	char selected;
+	SDL_bool selected;
 	SDL_Color color;
 }Text;
 
