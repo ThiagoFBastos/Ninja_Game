@@ -2,11 +2,12 @@
 #define MENU_H
 
 #include "images.h"
+#include "text.h"
 
 // Componentes
 
 IMAGE background;
-IMAGE buttons[1]; // trocar
+Text buttons[4];
 
 // Carrega todos os componentes necessarios para o funcionamento do menu
 void LoadMenuResources();
