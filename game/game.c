@@ -9,8 +9,10 @@ extern int game_state;
 void LoadGameResources()
 {
 	background.texture = LoadTexture("");
-	avatar.texture = LoadTexture("");
-	avatar.spritePos = avatar.speedY = cam.x = cam.y = 0;
+	avatar.obj.texture = LoadTexture("");
+	avatar.obj.spritePos = 0;
+	avatar.speedY = 0;
+	cam.x = cam.y = 0;
 }
 
 void Game()
@@ -26,7 +28,10 @@ void Game()
 		{
 			case SDLK_RIGHT:
 				
-				avatar.x += SPEED + ACCELERATION * (e.key.repeat != 0);
+				avatar.x += SPEED;
+				
+				if(e.key.repeat)
+					avatar.x += ACCELERATION;
 				
 				break;
 				
@@ -34,8 +39,8 @@ void Game()
 				
 				// Condições para implementar
 				
-				if(Balance(avatar.rect))
-					avatar.speedY = 50;
+				if(Balance(avatar.obj.bounds))
+					avatar.speedY = 40;
 				
 				break;
 		}
@@ -43,15 +48,28 @@ void Game()
 	  
   }
 	
-	// Condições para implementar
-	if(!Balance(avatar.rect))
+	
+	if(avatar.speedY <= 0 && Balance(avatar.obj.bounds))
 	{
-		avatar.rect.y += avatar.speedY;
+		avatar.speedY = 0;
+	}
+	else
+	{
+		avatar.rect.y += avatar.speedY / 3;
 		avatar.speedY--;
 	}
 	
 	SDL_RenderClear(render);
-	Render_Sprite(&avatar, cam);
+	Render_Sprite(&avatar.obj, cam);
 	SDL_RenderCopy(render, background.texture, NULL, NULL);
 	SDL_RenderPresent(render);
+}
+
+void FreeGameResources()
+{
+	SDL_DestroyTexture(avatar.obj.texture);
+	avatar.obj.texture = NULL;
+	
+	SDL_DestroyTexture(background.texture);
+	background.texture = NULL;
 }
