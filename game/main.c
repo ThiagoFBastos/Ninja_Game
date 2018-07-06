@@ -79,7 +79,7 @@ int main()
 					RankList();
 				break;
 				
-				case USE_RADD:
+				case USER_ADD:
 					UserAdd();
 				break;
 			}
