@@ -90,19 +90,19 @@ void Render_Image(Image* image, SDL_Point cam)
 	r.x -= cam.x;
 	r.y -= cam.y;
 
-	SDL_RenderCopy(render, image->texture, &r, NULL);
+	SDL_RenderCopy(render, image->texture, NULL, &r);
 }
 
 void Render_Sprite(Sprite* sprite, SDL_Point cam)
 {
 	SDL_Rect r, clip;
 
-	r = clip = sprite->rect;
+	r = clip = sprite->bounds;
 
 	r.x -= cam.x;
 	r.y -= cam.y;
 
-	SDL_RenderCopy(render, image->texture, &r, &clip);
+	SDL_RenderCopy(render, image->texture, &clip, &r);
 }
 
 int Balance(SDL_Rect rect)
