@@ -8,6 +8,7 @@ typedef struct
 	SDL_Texture* texture;
 	char text[50];
 	char selected;
+	SDL_Color color;
 }Text;
 
 void NewText(TTF_Font*, Text*);
