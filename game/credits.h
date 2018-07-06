@@ -5,5 +5,6 @@
 
 void LoadCreditsResources();
 void Credits();
+void FreeCreditsResources();
 
 #endif
