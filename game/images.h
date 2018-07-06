@@ -28,7 +28,7 @@ typedef struct
 
 struct 
 {
-	int tilemap[TILE_H][TILE_W];
+	short int tilemap[TILE_H][TILE_W];
 	SDL_Texture *texture;
 }TILEMAP;
 
