@@ -7,6 +7,8 @@ typedef struct
 {
 	SPRITE obj;
 	int speedY;
+	SDL_bool up;
+	
 } Avatar;
 
 SDL_Point cam;
