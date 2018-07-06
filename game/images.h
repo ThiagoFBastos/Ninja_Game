@@ -34,6 +34,7 @@ struct
 	SDL_Texture *texture;
 }TILEMAP;
 
+
 /* Verifica colisao entre retangulos
  * Intersects retorna 1 caso haja colisao senao retorna 0
 */
@@ -74,5 +75,7 @@ void Render_Sprite(Sprite*, SDL_Point);
 */
 
 SDL_Texture* LoadTexture(const char*);
+
+int Balance(SDL_Rect);
 
 #endif
