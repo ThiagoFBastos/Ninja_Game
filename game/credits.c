@@ -3,13 +3,18 @@
 #include <string.h>
 #include <stdio.h>
 
+/* Button != label ???*/
+
+
+
+
 void LoadCreditsResources()
 {
     background.texture = LoadTexture("");
     TTF_Font *font = TTF_OpenFont("m5x7.ttf",32);
     logo.texture = LoadTexture("");
 
-    //Adicionar posições
+    //Adicionar posiÃ§Ãµes
 
     //Voltar label
     strcpy(button[0].text, "Voltar");
