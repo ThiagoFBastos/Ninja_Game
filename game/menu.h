@@ -15,4 +15,7 @@ void LoadMenuResources();
 // Trata os eventos relacionados ao menu e renderiza os componentes presentes no mesmo 
 void Menu();
 
+//Libera toda a memoria alocada durante a exibiçao do menu
+void FreeMenuResources();
+
 #endif
