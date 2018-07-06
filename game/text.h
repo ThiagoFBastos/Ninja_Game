@@ -5,6 +5,7 @@
 
 typedef struct
 {
+	SDL_Rect rect;
 	SDL_Texture* texture;
 	char text[50];
 	char selected;
