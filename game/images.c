@@ -11,6 +11,14 @@ int Intersects(SDL_Rect u, SDL_Rect v)
 	return 1;
 }
 
+int HasPoint(SDL_Point point, SDL_Rect rect)
+{
+	if((point.x >= rect.x && point.x <= rect.x + rect.w) && (point.y >= rect.y && point.y <= rect.y + rect.h))
+		return 1;
+	
+	return 0;
+}
+
 SDL_Texture* LoadTexture(const char* filename)
 {
 	SDL_Surface *surface = IMG_Load(filename);
