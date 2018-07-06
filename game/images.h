@@ -14,10 +14,9 @@ extern SDL_Renderer* render;
 
 typedef struct
 {
-	SDL_Rect rect, hitBox;
+	SDL_Rect bounds, hitBox;
 	SDL_Texture* texture;
 	int spritePos; // posicao do sprite na imagem
-	int speedY;
 }SPRITE;
 
 typedef struct
