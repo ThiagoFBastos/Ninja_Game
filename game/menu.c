@@ -13,6 +13,8 @@ void LoadMenuResources()
 	background.texture = LoadTexture("");
     TTF_font* font = TTF_OpenFont("m5x7.ttf",32);
 	
+	//Faltam as posições dos retangulos
+	
 	//Novo jogo label
 	strcpy(button[0].text, "Novo jogo");
 	button[0].color.r = button[0].g = button[0].b = button[0].a = 255;
@@ -34,7 +36,6 @@ void LoadMenuResources()
 	strcpy(button[3].text, "Creditos");
 	button[3].color.r = button[3].g = button[3].b = button[3].a = 255;
 	New_Text(font, &button[3]);
-	
 }
 
 void Menu()
@@ -78,4 +79,19 @@ void Menu()
         SDL_RenderCopy(render, button[i].texture, &button[i].bounds, NULL);
 
 	SDL_RenderPresent(render);
+}
+
+void FreeMenuResources()
+{
+	SDL_DestroyTexture(background.texture);
+	background.texture = NULL;
+	
+	for(int j = 0; j < 4; j++)
+	{
+		SDL_DestroyTexture(button[j].texture);
+		button.texture = NULL;
+	}
+	
+	TTF_CloseFont(font);
+	font = NULL;
 }
