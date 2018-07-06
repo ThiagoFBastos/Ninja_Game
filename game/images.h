@@ -17,15 +17,13 @@ typedef struct
 	SDL_Rect rect, hitBox;
 	SDL_Texture* texture;
 	int spritePos; // posicao do sprite na imagem
-	int speedX, speedY;
-	
+	int speedY;
 }SPRITE;
 
 typedef struct
 {
 	SDL_Rect rect;
 	SDL_Texture *texture;
-
 }IMAGE;
 
 struct 
