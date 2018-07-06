@@ -1,6 +1,6 @@
 #include "images.h"
 
-int Intersects(Rect u, Rect v)
+int Intersects(SDL_Rect u, SDL_Rect v)
 {
 	if(u.x > v.x + v.w || u.x + u.w < v.x)
 		return 0;
