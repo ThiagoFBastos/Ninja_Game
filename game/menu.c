@@ -12,93 +12,78 @@ void LoadMenuResources()
 	background.texture = LoadTexture("");
     TTF_font* font = TTF_OpenFont("m5x7.ttf",32);
 	
-	//button[0]
+	//Novo jogo label
 	strcpy(button[0].text, "Novo jogo");
 	button[0].selected = 0;
-	button[0].color.r = button[0].g = button[0].b = button[0].a = 0xff;
-	NewText(font, &button[0]);
+	button[0].color.r = button[0].g = button[0].b = button[0].a = 255;
+	New_Text(font, &button[0]);
 	
-	//button[1]
+	//Opções label
 	
 	strcpy(button[1].text, "Opções");
 	button[1].selected = 0;
-	button[1].color.r = button[1].g = button[1].b = button[1].a = 0xff;
-	NewText(font, &button[1]);
+	button[1].color.r = button[1].g = button[1].b = button[1].a = 255;
+	New_Text(font, &button[1]);
+	
+	//Ranking label
+	
+	strcpy(button[2].text, "Ranking");
+	button[2].selected = 0;
+	button[2].color.r = button[2].g = button[2].b = button[2].a = 255;
+	New_Text(font, &button[2]);
+	
+	//Creditos label
+	strcpy(button[3].text, "Ranking");
+	button[3].selected = 0;
+	button[3].color.r = button[3].g = button[3].b = button[3].a = 255;
+	New_Text(font, &button[3]);
+	
 }
 
 void Menu()
 {
-    int x,y;
-    const int nummenu = 4;
-    const char* labels[nummenu] = {"Novo jogo","Opções","Ranking","Creditos"};
-    SDL_surface* menus[nummenu];
-    bool menuselect[nummenu] = {0,0,0,0};
-    SDL_Color cores[2] = {{255,255,255,0},{126,126,126,0}};
-
-    menus[0] = TTF_RenderText_Solid(font,labels[0],cores[0]);
-    menus[1] = TTF_RenderText_Solid(font,labels[1],cores[0]);
-    menus[2] = TTF_RenderText_Solid(font,labels[2],cores[0]);
-    menus[3] = TTF_RenderText_Solid(font,labels[3],cores[0]);
-
-    SDL_Rect position[nummenu] = {{""},{""},{""},{""}};
-
     SDL_Event e;
 
 	while(SDL_PollEvent(&e) != 0)
 	{
-		if(e.type == SDL_QUIT);
-            /*chamar uma funçao de termino*/
-
-        else if(e.type == SDL_MOUSEMOTION)
-        {
-            x=e.motion.x;
-            y=e.motion.y;
-
-            for(int i=0;i<nummenu;i++)
-            {
-                if(HasPoint(e.motion.x, e.motion.y, pos[i])
-                {
-                    if(menuselect[i])
-                    {
-						menuselect[i] = 0;
-                        SDL_FreeSurface(menu[i]);
-                        menu[i] = TTF_RenderText_Solid(font,labels[i],cores[0]);
-                    }
-                    else
-                    {
-                        menuselect[i] = 1;
-                        SDL_FreeSurface(menu[i]);
-                        menu[i] = TTF_RenderText_Solid(font,labels[i],cores[1]);
-                    }
-                }
-            }
-        }
 		
-        else if(e.type == SDL_MOUSEBUTTONDOWN)
-        {
-            if(HasPoint(e.button.x, e.button.y, pos[0])
-                    Game();
-            else if(HasPoint(e.button.x, e.button.y, pos[1])
-                    Options();
-            else if(HasPoint(e.button.x, e.button.y, pos[2])
-                    RankList();
-            else if(HasPoint(e.button.x, e.button.y, pos[3])
-                    Credits();
-        }
+		switch(e.type)
+		{
+			case SDL_QUIT: break;
+				
+			case SDL_MOUSEMOTION:
+				
+				 for(int i = 0; i < 4; i++)
+            	 {
+                	if(HasPoint(e.motion.x, e.motion.y, labels[i].bounds)
+					{
+						labels[i].selected = 1;
+						labels[i].color.r = labels[i].color.g = labels[i].color.b = 126;
+					}
+					else
+					{
+					   labels[i].selected = 0;
+					   labels[i].color.r = labels[i].color.g = labels[i].color.b = 255;
+					}
+				  }   
+				  break;
+					   
+			case SDL_MOUSEBUTTONDOWN:
+					   
+					 if(HasPoint(e.button.x, e.button.y, labels[0].bounds)) game_state = RUN;
+					 else if(HasPoint(e.button.x, e.button.y, labels[1].bounds));
+					 else if(HasPoint(e.button.x, e.button.y, labels[2].bounds));
+					 else if(HasPoint(e.button.x, e.button.y, labels[3].bounds));
+            }
+		}
 	}
-
-	for(int i=0;i<nummenu;i++)
-    {
-        SDL_Texture *tx[i] = SDL_CreateTextureFromSurface(render,menus[i]);
-    }
-
+				   
 	SDL_RenderClear(render);
+					
 	SDL_RenderCopy(render, background.texture, NULL, NULL);
 					
-    for(int i = 0; i < nummenu; i++)
-    {
-        SDL_RenderCopy(render,tx[i],NULL,position[i]);
-    }
+    for(int i = 0; i < 4; i++)
+        SDL_RenderCopy(render, button[i].texture, &button[i].bounds, NULL);
 
 	SDL_RenderPresent(render);
 }
