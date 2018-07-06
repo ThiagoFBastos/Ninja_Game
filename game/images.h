@@ -79,7 +79,7 @@ void Render_Sprite(Sprite*, SDL_Point);
 
 SDL_Texture* LoadTexture(const char*);
 
-/ * Verifica se um objeto retangular esta sobre um tile com caracteristica solida
+/* Verifica se um objeto retangular esta sobre um tile com caracteristica solida
   * Retorna 1 se o objeto esta em equilibrio estatico senao retorna 0
 */
 	
