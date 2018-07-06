@@ -32,44 +32,43 @@ void Menu()
 
 	while(SDL_PollEvent(&e) != 0)
 	{
-		if(e.type == SDL_QUIT)
+		if(e.type == SDL_QUIT);
             /*chamar uma funçao de termino*/
 
-        if(e.type == SDL_MOUSEMOTION)
+        else if(e.type == SDL_MOUSEMOTION)
         {
             x=e.motion.x;
             y=e.motion.y;
 
             for(int i=0;i<nummenu;i++)
             {
-                if(x>=pos[i].x && x<= pos[i].x + pos[i].w && y>= pos[i].y && y<=pos[i].y + pos[i].h)
+                if(HasPoint(e.motion.x, e.motion.y, pos[i])
                 {
-                    if(!menuselect[i])
+                    if(menuselect[i])
+                    {
+						menuselect[i] = 0;
+                        SDL_FreeSurface(menu[i]);
+                        menu[i] = TTF_RenderText_Solid(font,labels[i],cores[0]);
+                    }
+                    else
                     {
                         menuselect[i] = 1;
                         SDL_FreeSurface(menu[i]);
                         menu[i] = TTF_RenderText_Solid(font,labels[i],cores[1]);
                     }
-                    else if(menuselect[i])
-                    {
-                        menuselect[i] = 0;
-                        SDL_FreeSurface(menu[i]);
-                        menu[i] = TTF_RenderText_Solid(font,labels[i],cores[0]);
-                    }
                 }
             }
         }
-        if(e.type == SDL_MOUSEBUTTONDOWN)
+		
+        else if(e.type == SDL_MOUSEBUTTONDOWN)
         {
-            x=e.button.x;
-            y=e.button.y;
-            if(x>=pos[0].x && x<= pos[0].x + pos[0].w && y>= pos[0].y && y<=pos[0].y + pos[0].h)
+            if(HasPoint(e.button.x, e.button.y, pos[0])
                     Game();
-            if(x>=pos[1].x && x<= pos[1].x + pos[1].w && y>= pos[1].y && y<=pos[1].y + pos[1].h)
+            else if(HasPoint(e.button.x, e.button.y, pos[1])
                     Options();
-            if(x>=pos[2].x && x<= pos[2].x + pos[2].w && y>= pos[2].y && y<=pos[2].y + pos[2].h)
+            else if(HasPoint(e.button.x, e.button.y, pos[2])
                     RankList();
-            if(x>=pos[3].x && x<= pos[3].x + pos[3].w && y>= pos[3].y && y<=pos[3].y + pos[3].h)
+            else if(HasPoint(e.button.x, e.button.y, pos[3])
                     Credits();
         }
 	}
@@ -81,7 +80,8 @@ void Menu()
 
 	SDL_RenderClear(render);
 	SDL_RenderCopy(render, background.texture, NULL, NULL);
-    for(int i=0;i<nummenu;i++)
+					
+    for(int i = 0; i < nummenu; i++)
     {
         SDL_RenderCopy(render,tx[i],NULL,position[i]);
     }
