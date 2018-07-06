@@ -3,6 +3,7 @@
 
 // Componentes
 
+SDL_Point cam;
 SPRITE avatar;
 IMAGE background;
 
