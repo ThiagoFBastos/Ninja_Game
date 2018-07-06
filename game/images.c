@@ -75,7 +75,7 @@ void RenderMap(SDL_Point cam)
 
 }
 
-void Render_ImageCam(Image* image, SDL_Point cam)
+void Render_Image(Image* image, SDL_Point cam)
 {
 	SDL_Rect r = image->rect;
 
@@ -94,7 +94,13 @@ void Render_Sprite(Sprite* sprite, SDL_Point cam)
 	r.x -= cam.x;
 	r.y -= cam.y;
 
-	
-
 	SDL_RenderCopy(render, image->texture, &r, &clip);
+}
+
+int Balance(SDL_Rect rect)
+{
+	if(TILEMAP.tilemap[rect.y / TILE_MIN + 3][rect.x / TILE_MIN])
+		return 0;
+	
+	return 1;
 }
