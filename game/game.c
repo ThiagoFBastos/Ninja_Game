@@ -10,9 +10,7 @@ void LoadGameResources()
 {
 	background.texture = LoadTexture("");
 	avatar.texture = LoadTexture("");
-	
-	avatar.spritePos = 0;
-	avatar.speedY = 0;
+	avatar.spritePos = avatar.speedY = cam.x = cam.y = 0;
 }
 
 void Game()
@@ -36,7 +34,7 @@ void Game()
 				
 				// Condições para implementar
 				
-				if(TILEMAP.tilemap[avatar.y/TILE_MIN + 3][avatar.x/TILE_MIN])
+				if(Balance(avatar.rect))
 					avatar.speedY = 50;
 				
 				break;
@@ -46,8 +44,11 @@ void Game()
   }
 	
 	// Condições para implementar
-	if(TILEMAP.tilemap[avatar.y/TILE_MIN + 3][avatar.x/TILE_MIN])
-		avatar.speedY += SPEED;
+	if(!Balance(avatar.rect))
+	{
+		avatar.rect.y += avatar.speedY;
+		avatar.speedY--;
+	}
 	
 	SDL_RenderClear(render);
 	Render_Sprite(&avatar, cam);
