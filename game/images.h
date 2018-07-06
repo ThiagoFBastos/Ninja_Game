@@ -39,6 +39,12 @@ struct
 
 int Intersects(SDL_Rect, SDL_Rect);
 
+/* Verifica se um ponto esta em um retangulo
+ * retorna 1 caso esteja senao retorna 0
+*/
+
+int HasPoint(SDL_Point, SDL_Rect);
+
 /* Carrega o mapa no formato de tile maps 
  * Cada tile map e identificado por seu id que varia de 0 a n
  * O primeiro parametro e o endereco do arquivo de texto que contem o mapa
@@ -74,6 +80,10 @@ void Render_Sprite(Sprite*, SDL_Point);
 
 SDL_Texture* LoadTexture(const char*);
 
+/ * Verifica se um objeto retangular esta sobre um tile com caracteristica solida
+  * Retorna 1 se o objeto esta em equilibrio estatico senao retorna 0
+*/
+	
 int Balance(SDL_Rect);
 
 #endif
