@@ -12,6 +12,8 @@ typedef struct
 	SDL_Color color;
 }Text;
 
-void NewText(TTF_Font*, Text*);
+void New_Text(TTF_Font*, Text*);
+void Render_Text(Text);
+void Destroy_Text(Text*);
 
 #endif
