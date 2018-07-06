@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "game_state.h"
 #include "game.h"
 #include "credits.h"
 #include "menu.h"
@@ -9,14 +10,6 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-
-#define MENU 1
-#define RUN 2
-#define CREDITS 3
-#define OPTIONS 4
-#define RANKLIST 5
-#define USERADD 6
-#define EXIT 0
 
 SDL_Window* window = NULL;
 SDL_Renderer* render = NULL;
@@ -60,7 +53,7 @@ int main()
 		
 		LoadResourcesMenu();
 
-		while(game_state)
+		while(game_state != EXIT)
 		{
 			timestamp = SDL_GetTicks();
 
@@ -82,11 +75,11 @@ int main()
 					Options();
 				break;
 					
-				case RANKLIST:
+				case RANK_LIST:
 					RankList();
 				break;
 				
-				case USERADD:
+				case USE_RADD:
 					UserAdd();
 				break;
 			}
