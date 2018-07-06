@@ -10,7 +10,6 @@ typedef struct
 	char text[50];
 	SDL_bool selected;
 	SDL_Color color;
-	void (Event*)(void);
 }Text;
 
 void New_Text(TTF_Font*, Text*);
