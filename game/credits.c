@@ -1,5 +1,6 @@
 #include "credits.h"
 #include "game_state.h"
+
 #include <string.h>
 #include <stdio.h>
 
@@ -11,7 +12,7 @@
 void LoadCreditsResources()
 {
     background.texture = LoadTexture("");
-    TTF_Font *font = TTF_OpenFont("m5x7.ttf",32);
+    font = TTF_OpenFont("m5x7.ttf",32);
     logo.texture = LoadTexture("");
 
     //Adicionar posições
