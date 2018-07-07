@@ -8,6 +8,7 @@
 
 IMAGE background;
 Text labels[4];
+TTF_Font* font;
 
 // Carrega todos os componentes necessarios para o funcionamento do menu
 void LoadMenuResources();
