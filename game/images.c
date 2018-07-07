@@ -85,7 +85,7 @@ void RenderMap(SDL_Point cam)
 
 void Render_Image(Image* image, SDL_Point cam)
 {
-	SDL_Rect r = image->rect;
+	SDL_Rect r = image->bounds;
 
 	r.x -= cam.x;
 	r.y -= cam.y;
