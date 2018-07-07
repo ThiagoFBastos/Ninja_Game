@@ -13,8 +13,8 @@ typedef struct
 {
     SDL_Texture *texture[2];
     SDL_Rect playerPos;
-    SDL_Rect playerRect[2]; 
-    SDL_Point textureHW[2];
+    SDL_Rect playerRect[2]; //Posição de um frame em relação à imagem
+    SDL_Point textureHW[2]; //Dimensão das texturas
 }SPRITE;
 
 SPRITE player;
