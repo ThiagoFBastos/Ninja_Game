@@ -6,9 +6,6 @@
 
 /* Button != label ???*/
 
-
-
-
 void LoadCreditsResources()
 {
     background.texture = LoadTexture("");
@@ -20,11 +17,13 @@ void LoadCreditsResources()
     //Voltar label
     strcpy(button[0].text, "Voltar");
 	button[0].color.r = button[0].g = button[0].b = button[0].a = 255;
+	button[0].selected = 0;
 	New_Text(font, &button[0]);
 
 	//integrantes label
     strcpy(button[1].text, "Integrantes: ...");
 	button[1].color.r = button[1].g = button[1].b = button[1].a = 255;
+	button[1].selected = 0;
 	New_Text(font, &button[1]);
 
 
@@ -32,7 +31,7 @@ void LoadCreditsResources()
 
 void Credits()
 {
-       SDL_Event e;
+    SDL_Event e;
 
 	while(SDL_PollEvent(&e) != 0)
 	{
@@ -44,17 +43,37 @@ void Credits()
 			case SDL_MOUSEMOTION:
 
             	 {
-                	if(HasPoint(e.motion.x, e.motion.y, labels[0].bounds)
-						labels[0].color.r = labels[0].color.g = labels[0].color.b = 126;
-					else
-					   labels[0].color.r = labels[0].color.g = labels[0].color.b = 255;
-				  }
+					 
+					for(int i = 0; i < 2; i++)
+					{
+						if(HasPoint(e.motion.x, e.motion.y, button[i].bounds)
+						{
+							if(!labels[i].selected)
+							{
+								button[i].selected = SDL_TRUE;
+								button[i].color.r = 126;
+								button[i].color.g = 126;
+								button[i].color.b = 126;
+								SDL_DestroyTexture(labels[i].texture);
+								New_Text(render, font, &button[i]);
+							}
+						}
+						else if(button[i].selected)
+						{
+						   button[i].selected = SDL_FALSE;
+						   button[i].color.r = 255;
+						   button[i].color.g = 255;
+						   button[i].color.b = 255;
+						   SDL_DestroyTexture(button[i].texture);
+						   New_Text(render, font, &button[i]);
+						}
+				  	}
 
 				  break;
 
 			case SDL_MOUSEBUTTONDOWN:
 
-					 if(HasPoint(e.button.x, e.button.y, labels[0].bounds)) game_state = MENU;
+					 if(HasPoint(e.button.x, e.button.y, button[0].bounds)) game_state = MENU;
             }
 		}
 	}
@@ -64,12 +83,13 @@ void Credits()
 	SDL_RenderCopy(render, background.texture, NULL, NULL);
 
     for(int i = 0; i < 2; i++)
-        SDL_RenderCopy(render, button[i].texture, &button[i].bounds, NULL);
+        SDL_RenderCopy(render, button[i].texture, NULL, &button[i].bounds);
 
-    SDL_RenderCopy(render,logo.texture,"",NULL);
+    SDL_RenderCopy(render,logo.texture, NULL, logo.bounds);
 
 	SDL_RenderPresent(render);
-
+}
+						   
 void FreeCreditsResources()
 {
 	SDL_DestroyTexture(background.texture);
