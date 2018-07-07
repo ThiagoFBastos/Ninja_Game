@@ -21,7 +21,7 @@ typedef struct
 
 typedef struct
 {
-	SDL_Rect rect;
+	SDL_Rect bounds;
 	SDL_Texture *texture;
 }IMAGE;
 
