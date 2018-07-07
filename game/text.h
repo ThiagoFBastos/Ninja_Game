@@ -9,10 +9,9 @@ typedef struct
 	SDL_Texture* texture;
 	char text[50];
 	SDL_Color color;
+	SDL_bool selected;
 }Text;
 
 void New_Text(TTF_Font*, Text*);
-void Render_Text(Text);
-void Destroy_Text(Text*);
 
 #endif
