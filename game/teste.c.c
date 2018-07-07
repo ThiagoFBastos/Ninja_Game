@@ -1,7 +1,7 @@
-#include<stdio.h>
-#include<SDL.h>
-#include<SDL_image.h>
-#include<SDL_ttf.h>
+#include <stdio.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #define FPS 60
 
@@ -15,13 +15,15 @@ typedef struct
     SDL_Rect playerPos;
     SDL_Rect playerRect[2]; //Posição de um frame em relação à imagem
     SDL_Point textureHW[2]; //Dimensão das texturas
+
+	int speedY, speedX;
     
 }SPRITE;
 
 SPRITE player;
 
-SDL_Window* janela = 0;
-SDL_Renderer* renderizador = 0;
+SDL_Window* janela = NULL;
+SDL_Renderer* renderizador = NULL;
 SDL_Texture* tx[4];
 
 int quit = 0;
@@ -30,6 +32,7 @@ int main (int argc, char **argv)
 {
     int frametime = 0;
     int playerId = 0;
+	int timestamp;
     
     iniciar();
     carregarmedia();
@@ -39,10 +42,7 @@ int main (int argc, char **argv)
     {
         SDL_Event evento;
         
-        playerId = 0;
-        
-        SDL_SetRenderDrawColor(renderizador,111,133,255,255);
-        SDL_RenderClear(renderizador);
+		timestamp = SDL_GetTicks();
 
         while(SDL_PollEvent(&evento) != 0)
         {
@@ -54,7 +54,14 @@ int main (int argc, char **argv)
                 switch(evento.key.keysym.sym)
                 {
                     case SDLK_UP:
-                        player.playerPos.y -= 10;
+
+                        if(player.speedY == 0)
+						{
+							frametime = 0;
+                        	playerId = 1;
+							player.speedY = 30;
+						}
+
                     break;
                         
                     case SDLK_DOWN:
@@ -62,14 +69,26 @@ int main (int argc, char **argv)
                     break;
 
                     case SDLK_RIGHT:
-                        frametime = 0;
-                        player.playerRect[playerId].x = 0;
-                        player.playerPos.x += 10;
-                        playerId = 1;
+
+
+						if(player.speedX == 0)
+						{
+							frametime = 0;
+                        	playerId = 1;
+							player.speedX = 20;
+						}
+
                     break;
 
                     case SDLK_LEFT:
-                        player.playerPos.x -= 10;
+
+                        if(player.speedX == 0)
+						{
+							frametime = 0;
+                        	playerId = 1;
+							player.speedX = -20;
+						}
+
                     break;
 
                     case SDLK_ESCAPE:
@@ -79,25 +98,50 @@ int main (int argc, char **argv)
             }
         }
         
-     frametime++;
-        
-     if(FPS / frametime ==  player.textureHW[playerId] / player.playerRect[playerId].w)
-     {
-         frametime = 0;
-         
-         player.playerRect[playerId].x += player.playerRect[playerId].w;
-         
-         if(player.playerRect[playerId].x >= player.playerRect[playerId].w)
-            player.playerRect[playerId].x = 0;
-     }
+		if(!(player.speedY <= 0  && player.playerPos.y >= 472))
+		{
+			player.playerPos.y -= player.speedY/3;
+			player.speedY --;
+		}
+		else
+			player.speedY = 0;
 
-    for(int i = 0;i < 4; i++)
-        SDL_RenderCopy(renderizador,tx[i],NULL,NULL);
-        
-    for(int j = 0; j < 2; j++)
-        SDL_RenderCopy(renderizador, player.texture[j], &player.playerRect[j], &player.playerPos[j]);
-        
-    SDL_RenderPresent(renderizador);
+		if(player.speedX)
+		{
+			player.playerPos.x += player.speedX;
+			
+			if(player.speedX < 0) player.speedX ++;
+			else player.speedX --;
+		}
+		else
+			playerId = 0;
+
+		 frametime++;
+		    
+		 if(FPS / frametime ==  player.textureHW[playerId].x / player.playerRect[playerId].w)
+		 {
+		     frametime = 0;
+		     
+		     player.playerRect[playerId].x += player.playerRect[playerId].w;
+		     
+		     if(player.playerRect[playerId].x >= player.textureHW[playerId].x)
+		        player.playerRect[playerId].x = 0;
+		 }
+
+		timestamp = 1000/FPS - SDL_GetTicks() + timestamp;
+
+		if(timestamp > 0)
+			SDL_Delay(timestamp);
+
+        SDL_RenderClear(renderizador);
+
+		for(int i = 0;i < 4; i++)
+		    SDL_RenderCopy(renderizador,tx[i],NULL,NULL);
+		    
+		
+		SDL_RenderCopy(renderizador, player.texture[playerId], &player.playerRect[playerId], &player.playerPos);
+		    
+		SDL_RenderPresent(renderizador);
     }
 
     fechar();
@@ -136,8 +180,10 @@ void carregarmedia()
         SDL_FreeSurface(bg[i]);
     }
     
-    player.playerPos.x = player.playerPos.y = 0;
+    player.playerPos.x = 0;
+	player.playerPos.y = 472;
     player.playerPos.w = player.playerPos.h = 128;
+	player.speedX = player.speedY = 0;
     
     player.texture[0] = SDL_CreateTextureFromSurface(renderizador,idle);
     SDL_QueryTexture(player.texture[0],NULL,NULL, &player.textureHW[0].x, &player.textureHW[0].y);
@@ -179,3 +225,4 @@ void fechar()
     SDL_Quit();
 }
 
+ 
