@@ -142,16 +142,16 @@ void carregarmedia()
     player.playerPos.w = player.playerPos.h = 128;
     
     player.texture[0] = SDL_CreateTextureFromSurface(renderizador,idle);
-    SDL_QueryTexture(player.texture[0],NULL,NULL, &player.textureWH[0].x, &player.textureHW[0].y);
+    SDL_QueryTexture(player.texture[0],NULL,NULL, &player.textureHW[0].x, &player.textureHW[0].y);
     player.playerRect[0].x = player.playerRect[0].y = 0;
-    player.playerRect[0].w = player.textureWH[0].x / 4;
-    player.playerRect[0].h = player.textureWH[0].y;
+    player.playerRect[0].w = player.textureHW[0].x / 4;
+    player.playerRect[0].h = player.textureHW[0].y;
         
     player.texture[1] = SDL_CreateTextureFromSurface(renderizador,run);
     SDL_QueryTexture(player.texture[1], NULL, NULL, &player.textureHW[1].x, &player.textureHW[1].y);
     player.playerRect[1].x = player.playerRect[1].y = 0;
-    player.playerRect[1].w = player.textureWH[1].x / 3;
-    player.playerRect[1].h = player.textureWH[1].y;
+    player.playerRect[1].w = player.textureHW[1].x / 3;
+    player.playerRect[1].h = player.textureHW[1].y;
     
     SDL_FreeSurface(idle);
     SDL_FreeSurface(run);
