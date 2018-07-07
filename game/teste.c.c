@@ -15,22 +15,14 @@ typedef struct
     SDL_Rect playerPos;
     SDL_Rect playerRect[2]; //Posição de um frame em relação à imagem
     SDL_Point textureHW[2]; //Dimensão das texturas
+    
 }SPRITE;
 
 SPRITE player;
 
 SDL_Window* janela = 0;
-SDL_Surface* bg[4];
-SDL_Surface* idle;
-SDL_Surface* run;
 SDL_Renderer* renderizador = 0;
 SDL_Texture* tx[4];
-SDL_Texture* playerT;
-SDL_Rect PlayerRect;
-SDL_Rect PlayerPos;
-int FrameW,FrameH;
-int TextureW,TextureH;
-
 
 int quit = 0;
 
@@ -42,11 +34,12 @@ int main (int argc, char **argv)
     iniciar();
     carregarmedia();
     
-
     //Game loop
     while(quit == 0)
     {
         SDL_Event evento;
+        
+        playerId = 0;
         
         SDL_SetRenderDrawColor(renderizador,111,133,255,255);
         SDL_RenderClear(renderizador);
@@ -61,26 +54,26 @@ int main (int argc, char **argv)
                 switch(evento.key.keysym.sym)
                 {
                     case SDLK_UP:
-                    PlayerPos.y -= 10;
-
+                        player.playerPos.y -= 10;
                     break;
-
+                        
                     case SDLK_DOWN:
-                    PlayerPos.y += 10;
+                        player.playerPos.y += 10;
                     break;
 
                     case SDLK_RIGHT:
-                    PlayerPos.x += 10;
-                    playerT = SDL_CreateTextureFromSurface(renderizador,run);
-                    FrameW = TextureW/3;
+                        frametime = 0;
+                        player.playerRect[playerId].x = 0;
+                        player.playerPos.x += 10;
+                        playerId = 1;
                     break;
 
                     case SDLK_LEFT:
-                    PlayerPos.x -= 10;
+                        player.playerPos.x -= 10;
                     break;
 
                     case SDLK_ESCAPE:
-                    quit = 1;
+                        quit = 1;
                     break;
                 }
             }
@@ -88,7 +81,7 @@ int main (int argc, char **argv)
         
      frametime++;
         
-     if(FPS / frametime == 4)
+     if(FPS / frametime ==  player.textureHW[playerId] / player.playerRect[playerId].w)
      {
          frametime = 0;
          
@@ -100,6 +93,7 @@ int main (int argc, char **argv)
 
     for(int i = 0;i < 4; i++)
         SDL_RenderCopy(renderizador,tx[i],NULL,NULL);
+        
     for(int j = 0; j < 2; j++)
         SDL_RenderCopy(renderizador, player.texture[j], &player.playerRect[j], &player.playerPos[j]);
         
@@ -114,9 +108,8 @@ void iniciar()
 {
 
     if(SDL_Init(SDL_INIT_VIDEO < 0))
-        {
-            printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
-        }
+        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+     
 
     janela = SDL_CreateWindow("jogo",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,800,600,0);
 
@@ -127,16 +120,21 @@ void iniciar()
 
 void carregarmedia()
 {
+    SDL_Surface* bg[4];
+    
     bg[0] = IMG_Load("assets/bg/0.png");
     bg[1] = IMG_Load("assets/bg/1.png");
     bg[2] = IMG_Load("assets/bg/2.png");
     bg[3] = IMG_Load("assets/bg/3.png");
-    idle = IMG_Load("assets/idle.png");
-    run = IMG_Load("assets/run.png");
-
-
+    
+    SDL_Surface* idle = IMG_Load("assets/idle.png");
+    SDL_Surface* run = IMG_Load("assets/run.png");
+    
     for(int i = 0; i < 4; i++)
+    {
         tx[i] = SDL_CreateTextureFromSurface(renderizador,bg[i]);
+        SDL_FreeSurface(bg[i]);
+    }
     
     player.playerPos.x = player.playerPos.y = 0;
     player.playerPos.w = player.playerPos.h = 128;
@@ -159,18 +157,23 @@ void carregarmedia()
 
 void fechar()
 {
-    for(int i=0;i<4;i++)
+    for(int i = 0; i < 4; i++)
     {
-            SDL_FreeSurface(bg[i]);
-            bg[i] = 0;
-        }
+        SDL_DestroyTexture(tx[i]);
+        tx[i] = NULL;
+    }
 
-      
-     SDL_DestroyRenderer(renderizador);
-    renderizador = 0;
+    for(int i = 0; i < 2; i++)
+    {
+        SDL_DestroyTexture(player.texture[i]);
+        player.texture[i] = NULL;
+    }
+    
+    SDL_DestroyRenderer(renderizador);
+    renderizador = NULL;
     
     SDL_DestroyWindow(janela);
-    janela = 0;
+    janela = NULL;
 
     IMG_Quit();
     SDL_Quit();
