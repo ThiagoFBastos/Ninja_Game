@@ -7,5 +7,6 @@ TTF_Font* font;
 
 void LoadOptionsResources();
 void Options();
+void FreeOptionsResources();
 
 #endif
