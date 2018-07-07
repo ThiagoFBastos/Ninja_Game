@@ -60,13 +60,14 @@ void add_user(char user_id[], int points, int level)
 {
 	FILE *f = NULL;
 
-	if((f = fopen("", "a+"))
+	if((f = fopen("", "a+")))
 	{
 		USER user;
 
 		while(fscanf(f, "%*d%*d%s", &user.user_id) != EOF)
 		{
-			if(strcmp(user.user_id, user_id) == 0) break;			
+			if(strcmp(user.user_id, user_id) == 0) 
+			   break;			
 		}
 	
 		if(feof(f))
