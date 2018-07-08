@@ -7,7 +7,8 @@
 
 // Componentes globais
 
-TTF_Font *font;
+TTF_Font *userFont;
+IMAGE background;
 
 typedef struct 
 {
@@ -18,8 +19,11 @@ typedef struct
 
 // Componentes RankList
 
+TEXT rankButtons[7];
+
 void RankList();
 
+// Componentes AddUser
 
 void AddUser();
 
