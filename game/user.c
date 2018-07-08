@@ -70,9 +70,8 @@ void add_user(char user_id[], int points, int level)
 			   break;			
 		}
 	
-		if(feof(f))
-			fprintf(f, "%d %d %s\n", points, level, user_id);
+		if(feof(f)) fprintf(f, "%d %d %s", points, level, user_id);
 
 		fclose(f);
-	}	
+	}
 }
