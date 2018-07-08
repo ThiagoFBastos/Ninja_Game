@@ -7,8 +7,9 @@
 
 typedef struct
 {
-    char *nome;
+    char nome[25];
     int pontuacao;
+	
 } RECORDE;
 
 void LoadRankingResources()
