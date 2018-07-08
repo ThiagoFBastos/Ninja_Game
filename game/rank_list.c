@@ -20,7 +20,7 @@ void LoadRankingResources()
     background.texture = LoadTexture("");
     font = TTF_OpenFont("m5x7.ttf",32);
 
-    //Adicionar posições
+    //Adicionar posiÃ§Ãµes
 
     //Voltar label
     strcpy(button[0].text, "Voltar");
@@ -29,14 +29,14 @@ void LoadRankingResources()
 	New_Text(font, &button[0]);
 
 	//integrantes label
-    strcpy(button[1].text, "Melhores Pontuações :");
+    strcpy(button[1].text, "Melhores PontuaÃ§Ãµes :");
 	button[1].color.r = button[1].g = button[1].b = button[1].a = 255;
 	button[1].selected = 0;
 	New_Text(font, &button[1]);
 
     RECORDE recorde[5];
 
-    /* Falta mostrar a pontuação, nao sei a melhor forma de fazer isso, sem ser criando outros labels*/
+    /* Falta mostrar a pontuaÃ§Ã£o, nao sei a melhor forma de fazer isso, sem ser criando outros labels*/
 
 	for(int i=0;i<5;i++)
         fscanf("%s %d",&recorde[i].nome,&recorde[i].pontuacao);
@@ -122,7 +122,8 @@ void FreeRankingResources()
 		SDL_DestroyTexture(button[j].texture);
 		button.texture = NULL;
 	}
-
+	
+	arqv = NULL;
 	TTF_CloseFont(font);
 	font = NULL;
 }
