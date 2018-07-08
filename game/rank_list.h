@@ -1,7 +1,11 @@
-#ifndef RANK_LIST.H
-#define RANK_LIST.H
+#ifndef RANK_LIST_H
+#define RANK_LIST_H
 
 // Componentes
+
+#include "images.h"
+#include "text.h"
+#include <SDL2/SDL_ttf.h>
 
 TTF_Font* font;
 IMAGE background;
