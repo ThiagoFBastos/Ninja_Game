@@ -38,7 +38,7 @@ void User_add(char* NewRecName,int NewRecPt)
 
     for(int i=0;i<5;i++)
     {
-        fscanf(arqv,"%s %d",&rec[i].nome,&rec[i].pontuacao);
+        fscanf(arqv,"%s %d\n",&rec[i].nome,&rec[i].pontuacao);
     }
 
     rec[5].nome = NewRecName;
@@ -118,12 +118,10 @@ void printa(ARRAY *array)
 {
 	int i;
     RECORDE recorde;
-	printf("Recordes:\n");
-
 	for(i = 0; i < tamanho(array); i++)
 	{
         recorde = elemento(array, i);
-        printf("%s %d", i+1, recorde.nome, recorde.pontuacao);
+        printf("%s %d\n", i+1, recorde.nome, recorde.pontuacao);
 	}
 }
 
