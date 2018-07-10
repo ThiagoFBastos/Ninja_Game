@@ -1,0 +1,59 @@
+# depslib dependency file v1.0
+1531238527 source:/home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/credits.c
+	"game_state.h"
+	"credits.h"
+	<string.h>
+	<stdio.h>
+
+1531072786 /home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/game_state.h
+
+1531087106 /home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/credits.h
+	"images.h"
+
+1531243703 /home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/images.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<SDL2/SDL_ttf.h>
+
+1531240286 source:/home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/images.c
+	"images.h"
+
+1531235866 source:/home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/main.c
+	<stdio.h>
+	<SDL2/SDL_mixer.h>
+	"game_state.h"
+	"menu.h"
+	"credits.h"
+	"user.h"
+	"options.h"
+
+1531237097 /home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/menu.h
+	"images.h"
+	<SDL2/SDL_mixer.h>
+
+1531240667 /home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/user.h
+	"images.h"
+
+1531144321 /home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/options.h
+	"images.h"
+
+1531243826 source:/home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/menu.c
+	"menu.h"
+	"game_state.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1531238571 source:/home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/options.c
+	"options.h"
+	"game_state.h"
+	<stdio.h>
+	<string.h>
+
+1531242527 source:/home/thiagob/Downloads/Ninja_Game-master/Ninja_Game/user.c
+	"user.h"
+	"game_state.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
